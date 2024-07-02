@@ -12,11 +12,14 @@ from urllib.parse import unquote_plus
 from urllib.parse import urljoin
 from distutils.util import strtobool
 from flask_babel import Babel
+from flask_cors import CORS
+
 
 NO_SSL = bool(strtobool(os.environ.get('NO_SSL', 'False')))
 URL_PREFIX = os.environ.get('URL_PREFIX', None)
 HOST_OVERRIDE = os.environ.get('HOST_OVERRIDE', None)
 TOKEN_SEPARATOR = '~'
+NO_SSL=True
 
 # Initialize Flask Application
 app = Flask(__name__)
@@ -26,6 +29,7 @@ app.secret_key = os.environ.get('SECRET_KEY', 'Secret Key')
 app.config.update(
     dict(STATIC_URL=os.environ.get('STATIC_URL', 'static')))
 
+CORS(app, origins=["http://127.0.0.1:8000", "http://localhost:8000"])  # Only allow requests from http://127.0.0.1:8000
 
 # Set up Babel
 def get_locale():
@@ -217,7 +221,7 @@ def set_base_url(req):
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('set_password.html')
+    return render_template('password.html')
 
 
 @app.route('/', methods=['POST'])
@@ -353,7 +357,7 @@ def health_check():
 
 @check_redis_alive
 def main():
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5001)
 
 
 if __name__ == '__main__':

@@ -10,14 +10,6 @@
     <link href="{{ config.STATIC_URL }}/snappass/css/custom.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">{{ _('Share Secret') }}</a>
-        </div>
-      </div>
-    </nav>
-
     {% block content %}{% endblock %}
     <script src="{{ config.STATIC_URL }}/jquery/jquery-3.6.0.min.js"></script>
     <script src="{{ config.STATIC_URL }}/bootstrap/js/bootstrap.min.js"></script>

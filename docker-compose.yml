@@ -1,18 +1,17 @@
-version: '2'
+version: '3.8'
 
 services:
+  snappass:
+    build: .
+    container_name: snappass
+    ports:
+      - "5001:5001"
+    environment:
+      REDIS_URL: redis://my-redis-stack3:6379/0
 
-    snappass:
-        build: .
-        image: pinterest/snappass
-        ports:
-            - "5000:5000"
-        stop_signal: SIGINT
-        environment:
-            - REDIS_HOST=redis
-            - NO_SSL=True
-        depends_on:
-          - redis
 
-    redis:
-        image: "redis:latest"
+  redis:
+    image: redis/redis-stack-server
+    container_name: my-redis-stack3
+    ports:
+      - "6379:6379"
